@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ZVX & Argus2D Co-op Hub</title>
+    <style>
+        :root { 
+            --bg: #1b2838; 
+            --card: #2a475e; 
+            --text: #c7d5e0; 
+            --accent: #66c0f4;
+            --card-size: 120px;
+        }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
+        
+        /* Шапка */
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+            border-bottom: 1px solid var(--card); 
+            padding-bottom: 15px; 
+        }
+        .header-info { text-align: left; }
+        .header-info h1 { color: #fff; margin: 0 0 5px 0; font-size: 1.5em; }
+        .header-info p { color: var(--accent); margin: 0; font-size: 1em; }
+
+        .controls { display: flex; align-items: center; }
+        .slider-container { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 6px; border: 1px solid var(--card); }
+        input[type="range"] { cursor: pointer; width: 120px; }
+
+        /* Сетка игр */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr)); 
+            gap: 15px; 
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Карточка игры */
+        .card { 
+            background: var(--card); 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
+            transition: transform 0.2s, outline 0.2s, box-shadow 0.2s, border-color 0.2s; 
+            display: flex; 
+            flex-direction: column; 
+            text-decoration: none; 
+            color: inherit;
+            cursor: pointer;
+            border: 2px solid transparent; 
+            position: relative; 
+        }
+        
+        /* Цветовая индикация */
+        .card.color-green { border-color: #2ecc71; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
+        .card.color-yellow { border-color: #f1c40f; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3); }
+        .card.color-red { border-color: #e74c3c; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
+        .card.color-black { border-color: #000000; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); }
+
+        /* Иконка черепа для черной категории */
+        .skull-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 22px;
+            z-index: 10;
+            pointer-events: none; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+            transition: transform 0.2s ease;
+        }
+
+        /* Эффект при наведении */
+        .card:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            z-index: 2; 
+        }
+        
+        /* Анимация черепа при наведении на карточку */
+        .card:hover .skull-icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+        
+        /* Рамки при наведении */
+        .card:not([class*="color-"]):hover { outline: 2px solid var(--accent); box-shadow: 0 12px 25px rgba(0,0,0,0.6); }
+        .card.color-green:hover { outline: 2px solid #2ecc71; box-shadow: 0 12px 25px rgba(46, 204, 113, 0.6); }
+        .card.color-yellow:hover { outline: 2px solid #f1c40f; box-shadow: 0 12px 25px rgba(241, 196, 15, 0.6); }
+        .card.color-red:hover { outline: 2px solid #e74c3c; box-shadow: 0 12px 25px rgba(231, 76, 60, 0.6); }
+        .card.color-black:hover { outline: 2px solid #000000; box-shadow: 0 12px 25px rgba(0, 0, 0, 1); }
+        
+        /* Обложка */
+        .card img { 
+            width: 100%; 
+            aspect-ratio: 2 / 3; 
+            object-fit: cover; 
+            display: block; 
+            background: #171a21; 
+        }
+        
+        .info { 
+            padding: 10px 5px; 
+            text-align: center;
+            background: linear-gradient(to top, rgba(27,40,56,1) 0%, rgba(42,71,94,1) 100%);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .name { 
+            font-weight: bold; 
+            font-size: 0.95em; 
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        @media (max-width: 650px) {
+            .header { flex-direction: column; gap: 15px; text-align: center; }
+            .header-info { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-info">
+            <h1>ZVX & Argus2D</h1>
+            <p>Кооперативный игровой центр</p>
+        </div>
+        
+        <div class="controls">
+            <div class="slider-container">
+                <label for="scaleSlider">Размер:</label>
+                <input type="range" id="scaleSlider" min="120" max="350" value="120">
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" id="gameGrid"></div>
+
+    <script>
+        const myGames = [
+            { name: "R.E.P.O.", appId: "3241660", color: "green" },		
+            { name: "PEAK", appId: "3527290", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg", color: "yellow" },
+            { name: "Lethal Company", appId: "1966720", color: "red" },		
+            { name: "Content Warning", appId: "2881650", color: "red" },	
+
+            { name: "Human Fall Flat", appId: "477160", color: "green" },		
+            { name: "SOS OPS!", appId: "2475460", color: "green" },		
+            { name: "YAPYAP", appId: "3834090", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3834090/8a16962802f343a37b6b5524a1128f554b2e43ad/library_capsule.jpg", color: "yellow" },
+            { name: "КЛЕТЬ", appId: "1699480", color: "green" },		
+            { name: "Backseat Drivers", appId: "3558400", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3558400/0f320fbe20492f8faf62c076d98835ae5552d20d/library_600x900.jpg", color: "yellow" },
+            { name: "Vagante", appId: "323220", color: "red" },
+            { name: "Alien Swarm: Reactive Drop", appId: "563560", color: "yellow" },
+            { name: "Avorion", appId: "445220", color: "red" },
+            { name: "Buckshot Roulette", appId: "2835570", color: "yellow" },
+            { name: "Crab Champions", appId: "774801", color: "yellow" },
+            { name: "MECCHA CHAMELEON", appId: "4704690", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4704690/ac3c3c6d61e772101de5f95ac08b425e1b878ca8/library_capsule.jpg", color: "yellow" },
+            { name: "MISERY", appId: "2119830", color: "yellow" },
+            { name: "Nuclear Nightmare", appId: "2909110", color: "red" },	
+            { name: "Project Zomboid", appId: "108600", color: "yellow" },
+            { name: "Smalland: Survive the Wilds", appId: "768200", color: "yellow" },
+            { name: "Elite Dangerous", appId: "359320", color: "black" },
+            { name: "No Man's Sky", appId: "275850", color: "red" },	
+            { name: "BattleBit Remastered", appId: "671860", color: "red" },		
+            { name: "Palworld", appId: "1623730", color: "red" },	
+            { name: "Counter-Strike 2", appId: "730", color: "black" },
+            { name: "Left 4 Dead 2", appId: "550", color: "red" },	
+            { name: "DayZ", appId: "221100", color: "black" },
+            { name: "Portal 2", appId: "620", color: "red" },	
+            { name: "Rust", appId: "252490", color: "black" },
+            { name: "War Thunder", appId: "236390", color: "black" },
+            { name: "7 Days to Die", appId: "251570", color: "black" }
+        ];
+
+        const grid = document.getElementById('gameGrid');
+        const scaleSlider = document.getElementById('scaleSlider');
+
+        scaleSlider.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--card-size', `${e.target.value}px`);
+        });
+
+        function renderGames() {
+            grid.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+
+            // 📌 ПРИОРИТЕТ ЦВЕТОВ ДЛЯ СОРТИРОВКИ
+            const colorPriority = {
+                "green": 1,
+                "yellow": 2,
+                "red": 3,
+                "black": 4
+            };
+
+            // Создаем отсортированную копию массива
+            const sortedGames = [...myGames].sort((a, b) => {
+                // Если у игры нет цвета (undefined), ей присваивается приоритет 5 (в конец списка)
+                const priorityA = colorPriority[a.color] || 5;
+                const priorityB = colorPriority[b.color] || 5;
+                return priorityA - priorityB;
+            });
+
+            // Отрисовываем уже отсортированный массив
+            sortedGames.forEach(game => {
+                const id = game.appId ? game.appId.trim() : null;
+                
+                const card = document.createElement('a');
+                card.className = 'card';
+                
+                if (game.color) {
+                    card.classList.add(`color-${game.color}`);
+                }
+
+                card.href = id ? `steam://rungameid/${id}` : '#';
+                card.title = id ? `Запустить ${game.name}` : `Укажите App ID для ${game.name}`;
+
+                if (game.color === "black") {
+                    const skull = document.createElement('div');
+                    skull.className = 'skull-icon';
+                    skull.innerHTML = '💀'; 
+                    card.appendChild(skull);
+                }
+
+                const img = document.createElement('img');
+                img.loading = "lazy";
+                
+                if (game.customImg) {
+                    img.src = game.customImg;
+                } else if (id) {
+                    img.src = `https://steamcdn-a.akamaihd.net/steam/apps/${id}/library_600x900.jpg`;
+                } else {
+                    img.src = `https://via.placeholder.com/600x900/171a21/c7d5e0?text=${encodeURIComponent(game.name)}`;
+                }
+                
+                img.onerror = function() {
+                    this.src = `https://via.placeholder.com/600x900/171a21/c7d5e0?text=${encodeURIComponent(game.name)}`;
+                };
+
+                const info = document.createElement('div');
+                info.className = 'info';
+                info.innerHTML = `<div class="name">${game.name}</div>`;
+
+                card.appendChild(img);
+                card.appendChild(info);
+                fragment.appendChild(card);
+            });
+
+            grid.appendChild(fragment);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderGames);
+    </script>
+</body>
+</html>
