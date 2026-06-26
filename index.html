@@ -4,16 +4,51 @@
     <meta charset="UTF-8">
     <title>ZVX & Argus2D Co-op Hub</title>
     <style>
+        /* === ПЕРЕМЕННЫЕ === 
+           Здесь хранятся основные цвета. Если захочешь поменять оттенок — меняй здесь.
+        */
         :root { 
             --bg: #1b2838; 
             --card: #2a475e; 
             --text: #c7d5e0; 
             --accent: #66c0f4;
             --card-size: 120px;
+            
+            /* Цвета рамок */
+            --c-green: #2ecc71;
+            --c-yellow: #f1c40f;
+            --c-red: #e74c3c;
+            --c-purple: #9b59b6;
+            --c-black: #000000;
         }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
         
-        /* Шапка */
+        /* === БАЗОВЫЕ СТИЛИ === */
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            overflow-x: hidden; 
+            
+            /* Отключаем выделение текста, чтобы он не синел при случайном клике */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* === КАСТОМНЫЙ СКРОЛЛБАР === */
+        ::-webkit-scrollbar { width: 14px; }
+        ::-webkit-scrollbar-track { background: #171a21; }
+        ::-webkit-scrollbar-thumb {
+            background: var(--card);
+            border-radius: 7px;
+            border: 3px solid #171a21;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        
+        /* === ШАПКА === */
         .header { 
             display: flex; 
             justify-content: space-between; 
@@ -22,108 +57,155 @@
             border-bottom: 1px solid var(--card); 
             padding-bottom: 15px; 
         }
-        .header-info { text-align: left; }
         .header-info h1 { color: #fff; margin: 0 0 5px 0; font-size: 1.5em; }
         .header-info p { color: var(--accent); margin: 0; font-size: 1em; }
 
         .controls { display: flex; align-items: center; }
-        .slider-container { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 8px 15px; border-radius: 6px; border: 1px solid var(--card); }
+        .slider-container { 
+            display: flex; align-items: center; gap: 10px; 
+            background: rgba(0,0,0,0.2); padding: 8px 15px; 
+            border-radius: 6px; border: 1px solid var(--card); 
+        }
         input[type="range"] { cursor: pointer; width: 120px; }
 
-        /* Сетка игр */
+        /* === ЛЕГЕНДА ЦВЕТОВ === */
+        .legend {
+            display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;
+            background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid var(--card);
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; }
+        .color-box { width: 16px; height: 16px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        
+        /* Цвета для квадратиков в легенде и мини-бейджей */
+        .bg-green { background: var(--c-green); }
+        .bg-yellow { background: var(--c-yellow); }
+        .bg-red { background: var(--c-red); }
+        .bg-purple { background: var(--c-purple); }
+        .bg-black { background: var(--c-black); border: 1px solid #444; }
+        .bg-rainbow { background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); }
+
+        /* === СЕТКА ИГР === */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr)); 
             gap: 15px; 
-            max-width: 1400px;
-            margin: 0 auto;
+            width: 100%;
         }
         
-        /* Карточка игры */
+        /* === КАРТОЧКА ИГРЫ === */
         .card { 
-            background: var(--card); 
-            border-radius: 8px; 
-            overflow: hidden; 
+            background: var(--card); border-radius: 8px; overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.4); 
             transition: transform 0.2s, outline 0.2s, box-shadow 0.2s, border-color 0.2s; 
-            display: flex; 
-            flex-direction: column; 
-            text-decoration: none; 
-            color: inherit;
-            cursor: pointer;
-            border: 2px solid transparent; 
+            display: flex; flex-direction: column; text-decoration: none; 
+            color: inherit; cursor: pointer; border: 2px solid transparent; 
             position: relative; 
         }
         
-        /* Цветовая индикация */
-        .card.color-green { border-color: #2ecc71; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
-        .card.color-yellow { border-color: #f1c40f; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3); }
-        .card.color-red { border-color: #e74c3c; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
-        .card.color-black { border-color: #000000; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); }
+        /* Стилизация карточек в зависимости от ГЛАВНОГО цвета */
+        .card.color-green { border-color: var(--c-green); box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
+        .card.color-yellow { border-color: var(--c-yellow); box-shadow: 0 4px 10px rgba(241, 196, 15, 0.3); }
+        .card.color-red { border-color: var(--c-red); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
+        .card.color-purple { border-color: var(--c-purple); box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3); }
+        .card.color-black { border-color: var(--c-black); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); }
+        
+        /* Анимация для радужной карточки */
+        @keyframes rainbow-border {
+            0% { border-color: #ff0000; box-shadow: 0 4px 15px rgba(255,0,0,0.5); }
+            20% { border-color: #ffff00; box-shadow: 0 4px 15px rgba(255,255,0,0.5); }
+            40% { border-color: #00ff00; box-shadow: 0 4px 15px rgba(0,255,0,0.5); }
+            60% { border-color: #00ffff; box-shadow: 0 4px 15px rgba(0,255,255,0.5); }
+            80% { border-color: #0000ff; box-shadow: 0 4px 15px rgba(0,0,255,0.5); }
+            100% { border-color: #ff0000; box-shadow: 0 4px 15px rgba(255,0,0,0.5); }
+        }
+        .card.color-rainbow { 
+            animation: rainbow-border 4s linear infinite; 
+        }
 
-        /* Иконка черепа для черной категории */
+        /* Иконка черепа для черного цвета */
         .skull-icon {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            font-size: 22px;
-            z-index: 10;
-            pointer-events: none; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
-            transition: transform 0.2s ease;
+            position: absolute; top: 8px; right: 8px; font-size: 22px; z-index: 10; pointer-events: none; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9)); transition: transform 0.2s ease;
         }
 
-        /* Эффект при наведении */
-        .card:hover { 
-            transform: scale(1.05) translateY(-5px); 
-            z-index: 2; 
+        /* Блок для нескольких цветов (бейджики слева вверху) */
+        .color-badges {
+            position: absolute; top: 8px; left: 8px; display: flex; gap: 4px; z-index: 10;
         }
-        
-        /* Анимация черепа при наведении на карточку */
-        .card:hover .skull-icon {
-            transform: scale(1.2) rotate(15deg);
+        .badge {
+            width: 14px; height: 14px; border-radius: 50%; border: 2px solid #171a21;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-        
-        /* Рамки при наведении */
+
+        /* === ЭФФЕКТЫ ПРИ НАВЕДЕНИИ === */
+        .card:hover { transform: scale(1.05) translateY(-5px); z-index: 2; }
+        .card:hover .skull-icon { transform: scale(1.2) rotate(15deg); }
         .card:not([class*="color-"]):hover { outline: 2px solid var(--accent); box-shadow: 0 12px 25px rgba(0,0,0,0.6); }
-        .card.color-green:hover { outline: 2px solid #2ecc71; box-shadow: 0 12px 25px rgba(46, 204, 113, 0.6); }
-        .card.color-yellow:hover { outline: 2px solid #f1c40f; box-shadow: 0 12px 25px rgba(241, 196, 15, 0.6); }
-        .card.color-red:hover { outline: 2px solid #e74c3c; box-shadow: 0 12px 25px rgba(231, 76, 60, 0.6); }
-        .card.color-black:hover { outline: 2px solid #000000; box-shadow: 0 12px 25px rgba(0, 0, 0, 1); }
+        .card.color-green:hover { outline: 2px solid var(--c-green); box-shadow: 0 12px 25px rgba(46, 204, 113, 0.6); }
+        .card.color-yellow:hover { outline: 2px solid var(--c-yellow); box-shadow: 0 12px 25px rgba(241, 196, 15, 0.6); }
+        .card.color-red:hover { outline: 2px solid var(--c-red); box-shadow: 0 12px 25px rgba(231, 76, 60, 0.6); }
+        .card.color-purple:hover { outline: 2px solid var(--c-purple); box-shadow: 0 12px 25px rgba(155, 89, 182, 0.6); }
+        .card.color-black:hover { outline: 2px solid var(--c-black); box-shadow: 0 12px 25px rgba(0, 0, 0, 1); }
+        .card.color-rainbow:hover { outline: 2px solid #fff; box-shadow: 0 12px 25px rgba(255, 255, 255, 0.6); }
         
-        /* Обложка */
-        .card img { 
-            width: 100%; 
-            aspect-ratio: 2 / 3; 
-            object-fit: cover; 
-            display: block; 
-            background: #171a21; 
-        }
+        .card img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; background: #171a21; }
         
         .info { 
-            padding: 10px 5px; 
-            text-align: center;
+            padding: 10px 5px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(to top, rgba(27,40,56,1) 0%, rgba(42,71,94,1) 100%);
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .name { 
-            font-weight: bold; 
-            font-size: 0.95em; 
-            line-height: 1.2;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-shadow: 1px 1px 2px #000;
+            font-weight: bold; font-size: 0.95em; line-height: 1.2; 
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; 
+            overflow: hidden; text-shadow: 1px 1px 2px #000; 
         }
 
-        @media (max-width: 650px) {
+        /* === ВЫДВИЖНАЯ ПАНЕЛЬ И ЗАТЕМНЕНИЕ === */
+        .backdrop {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 99; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .backdrop.active { display: block; opacity: 1; }
+
+        .side-panel {
+            position: fixed; right: -450px; top: 0; width: 350px; max-width: 85vw; height: 100%;
+            background: #171a21; border-left: 2px solid var(--card); z-index: 100;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 25px; 
+            display: flex; flex-direction: column; gap: 15px; box-shadow: -10px 0 25px rgba(0,0,0,0.6);
+            overflow-y: auto;
+        }
+        .side-panel.active { right: 0; }
+
+        .panel-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .panel-title { font-size: 1.4em; color: #fff; margin: 0; text-shadow: 1px 1px 3px #000; }
+        .close-btn { 
+            background: rgba(255,255,255,0.1); border: none; color: #fff; width: 32px; height: 32px; 
+            border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.3); }
+
+        .panel-img { width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); object-fit: cover; aspect-ratio: 2/3; }
+        
+        .play-btn { 
+            display: block; background: linear-gradient( 90deg, #66c0f4 0%, #2a475e 100%); 
+            color: white; text-align: center; padding: 15px; border-radius: 6px; 
+            text-decoration: none; font-weight: bold; font-size: 1.2em; 
+            transition: transform 0.2s, filter 0.2s; 
+            box-shadow: 0 4px 10px rgba(102, 192, 244, 0.3);
+        }
+        .play-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+
+        .panel-note { 
+            background: var(--card); padding: 15px; border-radius: 8px; 
+            font-size: 0.95em; color: var(--text); border-left: 4px solid var(--accent);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
             .header { flex-direction: column; gap: 15px; text-align: center; }
-            .header-info { text-align: center; }
+            .legend { justify-content: center; }
         }
     </style>
 </head>
@@ -134,7 +216,6 @@
             <h1>ZVX & Argus2D</h1>
             <p>Кооперативный игровой центр</p>
         </div>
-        
         <div class="controls">
             <div class="slider-container">
                 <label for="scaleSlider">Размер:</label>
@@ -143,86 +224,172 @@
         </div>
     </div>
 
+    <div class="legend">
+        <div class="legend-item"><span class="color-box bg-rainbow"></span> <span>Свежая дичь / Новинки!</span></div>
+        <div class="legend-item"><span class="color-box bg-green"></span> <span>Готов играть хоть в 3 ночи</span></div>
+        <div class="legend-item"><span class="color-box bg-yellow"></span> <span>В основном нам нужны люди</span></div>
+        <div class="legend-item"><span class="color-box bg-red"></span> <span>Сюда ты скорее всего не полезешь</span></div>
+        <div class="legend-item"><span class="color-box bg-purple"></span> <span>Тут по сути коопа нет</span></div>
+        <div class="legend-item"><span class="color-box bg-black"></span> <span>💀 нам реально нужно в это играть ?</span></div>
+    </div>
+
     <div class="grid" id="gameGrid"></div>
 
-    <script>
-        const myGames = [
-            { name: "R.E.P.O.", appId: "3241660", color: "green" },		
-            { name: "PEAK", appId: "3527290", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg", color: "yellow" },
-            { name: "Lethal Company", appId: "1966720", color: "red" },		
-            { name: "Content Warning", appId: "2881650", color: "red" },	
+    <div class="backdrop" id="backdrop"></div>
+    <div class="side-panel" id="sidePanel">
+        <div class="panel-header">
+            <h2 class="panel-title" id="panelTitle">Название игры</h2>
+            <button class="close-btn" id="closePanel">✖</button>
+        </div>
+        <img id="panelImg" class="panel-img" src="" alt="Обложка">
+        
+        <a href="#" id="panelPlayBtn" class="play-btn">▶ ИГРАТЬ</a>
+        
+        <div class="panel-note" id="panelNote"></div>
+    </div>
 
-            { name: "Human Fall Flat", appId: "477160", color: "green" },		
-            { name: "SOS OPS!", appId: "2475460", color: "green" },		
-            { name: "YAPYAP", appId: "3834090", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3834090/8a16962802f343a37b6b5524a1128f554b2e43ad/library_capsule.jpg", color: "yellow" },
-            { name: "КЛЕТЬ", appId: "1699480", color: "green" },		
-            { name: "Backseat Drivers", appId: "3558400", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3558400/0f320fbe20492f8faf62c076d98835ae5552d20d/library_600x900.jpg", color: "yellow" },
-            { name: "Vagante", appId: "323220", color: "red" },
-            { name: "Alien Swarm: Reactive Drop", appId: "563560", color: "yellow" },
-            { name: "Avorion", appId: "445220", color: "red" },
-            { name: "Buckshot Roulette", appId: "2835570", color: "green" },
-            { name: "Crab Champions", appId: "774801", color: "yellow" },
-            { name: "MECCHA CHAMELEON", appId: "4704690", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4704690/ac3c3c6d61e772101de5f95ac08b425e1b878ca8/library_capsule.jpg", color: "yellow" },
-            { name: "MISERY", appId: "2119830", color: "yellow" },
-            { name: "Nuclear Nightmare", appId: "2909110", color: "red" },	
-            { name: "Project Zomboid", appId: "108600", color: "yellow" },
-            { name: "Smalland: Survive the Wilds", appId: "768200", color: "yellow" },
-            { name: "Elite Dangerous", appId: "359320", color: "black" },
-            { name: "No Man's Sky", appId: "275850", color: "red" },	
-            { name: "BattleBit Remastered", appId: "671860", color: "red" },		
-            { name: "Palworld", appId: "1623730", color: "red" },	
-            { name: "Counter-Strike 2", appId: "730", color: "black" },
-            { name: "Left 4 Dead 2", appId: "550", color: "red" },	
-            { name: "DayZ", appId: "221100", color: "black" },
-            { name: "Portal 2", appId: "620", color: "red" },	
-            { name: "Rust", appId: "252490", color: "black" },
-            { name: "War Thunder", appId: "236390", color: "black" },
-			{ name: "Don't Starve Together", appId: "322330", color: "red" },
-            { name: "7 Days to Die", appId: "251570", color: "black" }
+    <script>
+        // === БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ ===
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // === БАЗА ИГР === "rainbow" "green" "yellow" "red" "purple" "black"
+        // Структура теперь: color (может быть массивом для нескольких цветов), note, name, appId (или customImg)
+        const myGames = [
+            { color: ["green"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "R.E.P.O.", appId: "3241660" },
+            { color: ["green"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Human Fall Flat", appId: "477160" },
+            { color: ["green"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "SOS OPS!", appId: "2475460" },
+            { color: ["rainbow"], note: "Еще не играли", name: "КЛЕТЬ", appId: "1699480" },
+            { color: ["rainbow"], note: "Еще не играли", name: "Backseat Drivers", appId: "3558400", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3558400/0f320fbe20492f8faf62c076d98835ae5552d20d/library_600x900.jpg" },
+            { color: ["rainbow"], note: "Ещё не играли", name: "Nuclear Nightmare", appId: "2909110" },
+            { color: ["rainbow"], note: "Ещё не играли", name: "MECCHA CHAMELEON", appId: "4704690", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4704690/ac3c3c6d61e772101de5f95ac08b425e1b878ca8/library_capsule.jpg" },
+            { color: ["rainbow"], note: "Еще не играли", name: "Don't Starve Together", appId: "322330" },
+            { color: ["rainbow"], note: "Еще не играли", name: "MISERY", appId: "2119830" },
+            { color: ["yellow"], note: "Весело, но нужно больше людей для полноценного экспириенса.", name: "PEAK", appId: "3527290", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg" },
+            { color: ["yellow"], note: "Весело, но нужно больше людей для полноценного экспириенса.", name: "YAPYAP", appId: "3834090", customImg: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3834090/8a16962802f343a37b6b5524a1128f554b2e43ad/library_capsule.jpg" },
+            { color: ["yellow"], note: "Весело, но нужно больше людей для полноценного экспириенса.", name: "Lethal Company", appId: "1966720" },
+            { color: ["yellow"], note: "Весело, но нужно больше людей для полноценного экспириенса.", name: "Content Warning", appId: "2881650" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем. (зависит от карты)", name: "Alien Swarm: Reactive Drop", appId: "563560" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Smalland: Survive the Wilds", appId: "768200" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Project Zomboid", appId: "108600" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Buckshot Roulette", appId: "2835570" },
+            { color: ["red"], note: "Игра на 2 игроков. Это боль!", name: "Vagante", appId: "323220" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Avorion", appId: "445220" },
+            { color: ["red"], note: "Игра на 2+ игроков. Комфортно играется вдвоем.", name: "Crab Champions", appId: "774801" },
+            { color: ["red"], note: "на 2 игрока", name: "Portal 2", appId: "620" },
+            { color: ["red"], note: "", name: "Palworld", appId: "1623730" },
+            { color: ["red"], note: "", name: "Left 4 Dead 2", appId: "550" },
+            { color: ["purple"], note: "Долго, Нудно, коопа считай нет", name: "Elite Dangerous", appId: "359320" },
+            { color: ["purple"], note: "Долго, Нудно, коопа считай нет", name: "No Man's Sky", appId: "275850" },
+            { color: ["purple"], note: "«Кооп Шрёдингера»", name: "BattleBit Remastered", appId: "671860" },
+            { color: ["black"], note: "Требует 2+ игрока. В 2 рыла нам не выжить, нужен клан.", name: "Rust", appId: "252490" },
+            { color: ["black"], note: "", name: "Counter-Strike 2", appId: "730" },
+            { color: ["black"], note: "", name: "DayZ", appId: "221100" },
+            { color: ["black"], note: "", name: "War Thunder", appId: "236390" },
+            { color: ["black"], note: "", name: "7 Days to Die", appId: "251570" }
         ];
 
+        // Получаем элементы интерфейса
         const grid = document.getElementById('gameGrid');
         const scaleSlider = document.getElementById('scaleSlider');
+        
+        const sidePanel = document.getElementById('sidePanel');
+        const backdrop = document.getElementById('backdrop');
+        const closePanelBtn = document.getElementById('closePanel');
+        const panelTitle = document.getElementById('panelTitle');
+        const panelImg = document.getElementById('panelImg');
+        const panelNote = document.getElementById('panelNote');
+        const panelPlayBtn = document.getElementById('panelPlayBtn');
 
+        // Логика изменения масштаба карточек
         scaleSlider.addEventListener('input', (e) => {
             document.documentElement.style.setProperty('--card-size', `${e.target.value}px`);
         });
 
+        // Функция открытия боковой панели
+        function openPanel(game, imgSrc) {
+            panelTitle.textContent = game.name;
+            panelImg.src = imgSrc;
+            
+            if (game.note) {
+                panelNote.innerHTML = `<strong>Заметка:</strong> ${game.note}`;
+            } else {
+                panelNote.innerHTML = `<em>Специфичных комментариев нет... Идем на свой страх и риск.</em>`;
+            }
+
+            panelPlayBtn.href = game.appId ? `steam://rungameid/${game.appId}` : '#';
+            
+            backdrop.classList.add('active');
+            sidePanel.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Убираем прокрутку страницы
+        }
+
+        // Функция закрытия панели
+        function closePanel() {
+            backdrop.classList.remove('active');
+            sidePanel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closePanelBtn.addEventListener('click', closePanel);
+        backdrop.addEventListener('click', closePanel);
+
+        // Функция рендера карточек
         function renderGames() {
             grid.innerHTML = '';
             const fragment = document.createDocumentFragment();
 
-            // 📌 ПРИОРИТЕТ ЦВЕТОВ ДЛЯ СОРТИРОВКИ
+            // Приоритеты для сортировки (радужный - самый приоритетный)
             const colorPriority = {
+                "rainbow": 0,
                 "green": 1,
                 "yellow": 2,
                 "red": 3,
-                "black": 4
+                "purple": 4,
+                "black": 5
             };
 
-            // Создаем отсортированную копию массива
+            // Сортируем игры: если у игры есть массив цветов, берем первый для сортировки
             const sortedGames = [...myGames].sort((a, b) => {
-                // Если у игры нет цвета (undefined), ей присваивается приоритет 5 (в конец списка)
-                const priorityA = colorPriority[a.color] || 5;
-                const priorityB = colorPriority[b.color] || 5;
+                const colorsA = Array.isArray(a.color) ? a.color : (a.color ? [a.color] : []);
+                const colorsB = Array.isArray(b.color) ? b.color : (b.color ? [b.color] : []);
+                
+                const priorityA = colorsA.length > 0 ? (colorPriority[colorsA[0]] ?? 6) : 6;
+                const priorityB = colorsB.length > 0 ? (colorPriority[colorsB[0]] ?? 6) : 6;
+                
                 return priorityA - priorityB;
             });
 
-            // Отрисовываем уже отсортированный массив
+            // Отрисовываем каждую игру
             sortedGames.forEach(game => {
                 const id = game.appId ? game.appId.trim() : null;
                 
-                const card = document.createElement('a');
+                const card = document.createElement('div');
                 card.className = 'card';
                 
-                if (game.color) {
-                    card.classList.add(`color-${game.color}`);
+                // Приводим color к массиву, даже если указали просто строкой или ничего не указали
+                const colorsArr = Array.isArray(game.color) ? game.color : (game.color ? [game.color] : []);
+                
+                if (colorsArr.length > 0) {
+                    // Основной цвет карточки (рамка, анимация) задается по ПЕРВОМУ цвету в массиве
+                    card.classList.add(`color-${colorsArr[0]}`);
+
+                    // Если цветов больше одного, выводим кружочки (бейджи) в углу
+                    if (colorsArr.length > 1) {
+                        const badgesContainer = document.createElement('div');
+                        badgesContainer.className = 'color-badges';
+                        colorsArr.forEach(col => {
+                            const badge = document.createElement('div');
+                            badge.className = `badge bg-${col}`;
+                            badgesContainer.appendChild(badge);
+                        });
+                        card.appendChild(badgesContainer);
+                    }
                 }
 
-                card.href = id ? `steam://rungameid/${id}` : '#';
-                card.title = id ? `Запустить ${game.name}` : `Укажите App ID для ${game.name}`;
-
-                if (game.color === "black") {
+                // Добавляем иконку черепа, если среди цветов есть black
+                if (colorsArr.includes("black")) {
                     const skull = document.createElement('div');
                     skull.className = 'skull-icon';
                     skull.innerHTML = '💀'; 
@@ -232,14 +399,16 @@
                 const img = document.createElement('img');
                 img.loading = "lazy";
                 
+                let imageSrc = "";
                 if (game.customImg) {
-                    img.src = game.customImg;
+                    imageSrc = game.customImg;
                 } else if (id) {
-                    img.src = `https://steamcdn-a.akamaihd.net/steam/apps/${id}/library_600x900.jpg`;
+                    imageSrc = `https://steamcdn-a.akamaihd.net/steam/apps/${id}/library_600x900.jpg`;
                 } else {
-                    img.src = `https://via.placeholder.com/600x900/171a21/c7d5e0?text=${encodeURIComponent(game.name)}`;
+                    imageSrc = `https://via.placeholder.com/600x900/171a21/c7d5e0?text=${encodeURIComponent(game.name)}`;
                 }
                 
+                img.src = imageSrc;
                 img.onerror = function() {
                     this.src = `https://via.placeholder.com/600x900/171a21/c7d5e0?text=${encodeURIComponent(game.name)}`;
                 };
@@ -250,12 +419,16 @@
 
                 card.appendChild(img);
                 card.appendChild(info);
+                
+                card.addEventListener('click', () => openPanel(game, img.src));
+
                 fragment.appendChild(card);
             });
 
             grid.appendChild(fragment);
         }
 
+        // Запускаем рендер после загрузки DOM
         document.addEventListener('DOMContentLoaded', renderGames);
     </script>
 </body>
