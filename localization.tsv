@@ -1096,7 +1096,7 @@ label_undiscovered_cards_tooltip		В этой пачке еще остались
 label_undiscovered_cards_tooltip_title		Неразгаданные карты	
 rumor_dark_forest_name		Темный лес	
 rumor_dark_forest_description		За Странным порталом скрыт мир	
-pack_equipment_text	Название набора карт, связанных с боем	
+pack_equipment_text		Арсенал	
 label_ui_scale		UI Scale: [scale]	
 label_ui_scale_100		100%	
 label_ui_scale_80		80%	
