@@ -316,21 +316,21 @@ label_well_done		Отличная работа!
 label_yes		Да	
 label_you_killed_the_demon		Ты убил демона!	
 label_you_reached_moon		Вы достигли луны [moon]	
-pack_a_new_world_text	Название вашего первого пакета карт	Новый мир	
-pack_cuisine_text	Название набора карт, связанных с кулинарией	
-pack_explorers_text	Название набора карт, связанных с исследованием	
-pack_farming_text	Название набора карт, связанных с фермерством	
-pack_humble_beginnings_text	Название набора карт, связанных с началом	
-pack_logic_reason_text	Название набора карточек, связанных с идеями	
-pack_order_structure_text	Название набора карточек, связанных с идеями	
-pack_seeking_wisdom_text	Название набора карточек, связанных с идеями	
+pack_a_new_world_text		Новый мир
+pack_cuisine_text		Диковинная кухня
+pack_explorers_text		Исследователи
+pack_farming_text		Что посеешь, то и пожнешь
+pack_humble_beginnings_text		Скромное начало
+pack_logic_reason_text		Логика и разум
+pack_order_structure_text		Порядок и структура
+pack_seeking_wisdom_text		В поисках мудрости
 quest_3_villagers_text		Получите 3 жителей деревни	
 quest_bring_goblet_text		Принесите кубок в храм	
 quest_build_3_houses_text		Имеют 3 дома	
 quest_build_farm_text		Постройте ферму	
 quest_build_house_text		Постройте дом	
 quest_build_temple_text		Постройте храм
-quest_buy_booster_text	Имя, используемое в "pack_a_new_world_text" ключ Купить набор "Скромное начало" 	
+quest_buy_booster_text		Купить набор "Скромное начало" 	
 quest_buy_from_travelling_cart_text		Купить что-нибудь в тележке путешественника	
 quest_carve_stick_text		Сделайте палку из дерева	
 quest_cook_frittata_text		Приготовьте фриттату	
