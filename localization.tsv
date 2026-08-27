@@ -167,7 +167,7 @@ card_warehouse_name		Склад
 card_wolf_description		Выглядит зловеще
 card_wolf_name		Волк
 card_wood_description		Простой ресурс
-card_wood_name		Дерево
+card_wood_name		Древесина
 cardtype_food		Еда
 cardtype_ideas		Идеи
 cardtype_locations		Локации
@@ -350,7 +350,7 @@ quest_get_iron_bar_text		Приобретите железный слиток
 quest_have_gold_text		[count] Монет
 quest_have_10_ideas_text		10 идей	
 quest_have_10_stone_text		10 камней	
-quest_have_10_wood_text		10 дерева	
+quest_have_10_wood_text		10 Древесины	
 quest_have_food_text		[count] еды	
 quest_have_5_ideas_text		5 идей	
 quest_kill_a_rat_text		Убить крысу	
@@ -685,7 +685,7 @@ quest_make_sushi_text		Приготовьте суши
 quest_open_message_in_a_bottle_text		Открыть послание в бутылке	
 quest_open_sacred_chest_text		Откройте священный ларец	
 quest_poisoned_villager_text		Отравленный житель деревни	
-quest_punch_driftwood_text		Выдолбите немного дерева	
+quest_punch_driftwood_text		Выдолбите немного Древесины	
 quest_train_a_fisher_text		Обучение рыболова	
 quest_train_captain_text		Обучить капитана	
 quest_unlock_all_island_packs_text		Разблокируйте все островные пакеты	
