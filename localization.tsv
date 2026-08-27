@@ -296,7 +296,6 @@ label_sell		Продать
 label_sell_cards_to_continue		Продать карты, чтобы продолжить
 label_sell_x_cards		<one>Продать 1 карту<other>Продать [count] карт	
 label_sellbox_title		Продажа карт	
-label_sfx		SFX
 label_stack_of_cards		Стопка карт	
 label_start_new_moon		Начать новую луну	
 label_start_new_run		Начать новый забег	
@@ -993,6 +992,7 @@ label_can_drop		Может упасть:
 label_cancel_the_ritual		Минутку...	
 label_combatlevel		Боевой уровень [level]	
 label_defence		Оборона	
+label_defence		Оборона		  
 label_demo		Demo	
 label_demo_any_key_to_start		Нажмите любую кнопку, чтобы начать игру	
 label_demo_reset_warning		Demo will reset in [time]s, press any key to continue	
@@ -1741,6 +1741,7 @@ pack_happiness_ideas1_text		Счастливые мысли
 pack_happiness_ideas2_text		Счастлива до конца
 pack_happiness_intro_text		Счастливое начало
 pack_happiness1_text		Простая жизнь
+quest_3_succesfull_demands_text		Успешно выполните 3 требований
 quest_5_succesfull_demands_text		Успешно выполните 5 требований
 quest_8_succesfull_demands_text		Успешно выполните 8 требований	
 quest_create_altar_text		Поговорите с шаманом, чтобы получить тайные знания	
@@ -1975,6 +1976,7 @@ card_science_name		Наука
 card_science_description		Результат применения научного метода
 card_science_status_0		Создание науки
 card_uranium_name		Уран
+card_uranium_description		Обращаться с осторожностью...
 card_oil_name		Нефть
 card_oil_description		Мерзкая жижа динозавров
 card_oil_rig_name		Буровая платформа для нефтяных буровых установок
@@ -2411,6 +2413,7 @@ card_steam_generator_description		Сжигает пиломатериалы дл
 card_steam_generator_status_0		Конструкция генератора горелки	
 cutscene_cities_wellbeing_30_text		Ух ты, город выглядит просто потрясающе!	
 cutscene_cities_wellbeing_30_text_1		По городу поползли слухи...	
+label_goblin_info		За каждого гоблина вне конфликта вы будете терять 1 благополучие
 card_laboratory_name		Лаборатория	
 card_laboratory_description		Где создается наука	
 card_laboratory_status_0		Строительство лаборатории	
