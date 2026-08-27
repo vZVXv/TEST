@@ -244,13 +244,13 @@ label_continue_run		Продолжить забег (Луна [moon])
 label_credits		Кредиты	
 label_damage		Урон:	
 label_drag_coins_to_buy_pack		Перетащите [cost][goldicon] здесь, чтобы купить этот пакет    	
-label_drop_to_sell		Продать за [value]	
+label_drop_to_sell		Продать за [value]
 label_eating		Прием пищи...	
 label_end_of_moon		Конец луны [moon]	
 label_everyone_fed		Все сыты!	
 label_everyone_starved		Все умерли от голода!	
 label_feed_villagers		Накормить жителей деревни	
-label_foil	Термин для описания «блестящей» карты	(foil)	
+label_foil		(фольгированная)
 label_fullscreen		Полный экран: [on_off]	
 label_game_options		Параметры игры	
 label_game_over		Game Over
@@ -555,8 +555,7 @@ card_tuna_name		Тунец
 card_wool_description		Мягкий ресурс	
 card_wool_name		Шерсть	
 cardtype_fish		Рыба	
-cardtype_rumors		Слухи	
-empty	Intentionally left blank												
+cardtype_rumors		Слухи												
 idea_aquarium_status_0		Строительство аквариума
 idea_befriending_pirate_status		Подружиться с пиратом	
 idea_bottle_status_0		Изготовление бутылки	
@@ -759,10 +758,10 @@ label_keyboard_mouse		Keyboard & Mouse
 label_controller		Controller	
 label_waiting_for_input		Waiting for input	
 label_sellbox_description		Перетащите карты сюда, чтобы продать их. Вы также можете использовать [action_sell] чтобы продать карты
-label_toggle_panel_text	Теперь элементы управления могут быть переброшены, так что параметры будут заменены соответствующей клавишей	Нажмите эту кнопку или нажмите [action_panel_collapse] чтобы переключить вкладку «Квесты и идеи»	
+label_toggle_panel_text		Теперь элементы управления могут быть переброшены, так что параметры будут заменены соответствующей клавишей	Нажмите эту кнопку или нажмите [action_panel_collapse] чтобы переключить вкладку «Квесты и идеи»	
 label_auto_pause_controller		Автоматическое приостановление времени при перетаскивании карт (controller):	
 label_auto_pause_keyboardmouse		Автоматическое приостановление времени при перетаскивании карт (keyboard):	
-label_binding	Используется при перепривязывании элемента управления к клавише Назначение [control]	
+label_binding		Используется при перепривязывании элемента управления к клавише Назначение [control]	
 label_accessibility		Доступность	
 language_portuguese		Brazilian 	
 language_chinese		Chinese	
@@ -886,7 +885,7 @@ card_magic_tome_name		Магическая книга
 card_magic_wand_description		Простое магическое оружие	
 card_magic_wand_name		Волшебная палочка	
 card_merman_description		Наполовину человек, наполовину мер	
-card_merman_name	Это мужская версия русалки	
+card_merman_name		Это мужская версия русалки	
 card_mimic_description		Это чуть не заставило меня	
 card_mimic_name		Мимик	
 card_miner_description		Намного быстрее добывать камень, золото и железо	
@@ -1080,9 +1079,9 @@ statuseffect_invulnerable_name		Неуязвимый
 target_allenemy		все враги	
 target_allfriendly		все дружелюбны	
 target_randomenemy		случайный враг	
-target_randomfriendly		случайный дружелюбный	
+target_randomfriendly		случайный дружелюбный
 target_self		self	
-target_target		цель	
+target_target		цель
 cardtype_humans		Жители деревни	
 label_food_infobox		Все Луны, которые вам нужны [required_food_count] [foodicon] чтобы прокормить своих жителей. В настоящее время у вас есть [food_count] [foodicon]	
 label_food_infobox_warning		Получите [foodicon] чтобы не потерять своих жителей!	
@@ -1123,7 +1122,7 @@ label_invention_fullname		Изобретение: [name]
 card_lighthouse_name		Маяк	
 card_lighthouse_description		Увеличивает размер доски сверх лимита Хранилища	
 idea_lighthouse_status_0		Строительство маяка
-card_resource_chest_name_override	[resource] заменяется ресурсом, который хранится в сундуке, например, «Сундук с древесиной»	[resource] Сундук	
+card_resource_chest_name_override		[resource] заменяется ресурсом, который хранится в сундуке, например, «Сундук с древесиной»	[resource] Сундук	
 card_resource_chest_name		Сундук с ресурсами	
 card_resource_chest_description		Сундук для хранения ресурсов	
 card_resource_chest_description_long		Сундук, содержащий [amount] [resource] 	
@@ -1131,7 +1130,7 @@ idea_resourcechest_status_0		Строительный сундук
 card_resource_magnet_name		Магнит для ресурсов		
 card_resource_magnet_name_override		[resource] Магнит	
 card_resource_magnet_description		Эта карта магическим образом притягивает к себе карты того же типа	
-card_resource_magnet_description_long	[resource] заменяется ресурсом, который притягивает магнит, например, «Магнит из дерева»	Магнит притягивает [resource]	
+card_resource_magnet_description_long		[resource] заменяется ресурсом, который притягивает магнит, например, «Магнит из дерева»	Магнит притягивает [resource]	
 idea_resource_magnet_status_0		Создание ресурсного магнита	
 card_heavy_foundation_name		Волшебный клей	
 card_heavy_foundation_description		Прикрепляет стопку к доске и не дает ей перемещаться	
@@ -1147,7 +1146,7 @@ card_trash_can_name		Dustbin
 card_trash_can_description		Allows you to get rid of cards you don't want anymore	
 idea_trash_can_status_0		Строительство мусорного бака	
 card_trash_can_status_0		Избавление от карты	
-label_update_text_chaos	Здесь новое небольшое обновление! Мы добавили кучу карт, которые сделают жизнь в средней и поздней игре намного более управляемой.## Есть карты, которые помогут вам в управлении едой, ресурсами и даже некоторые карты, которые вы можете использовать для настройки простой автоматизации!##Мы также исправили некоторые ошибки, а также добавили исправления качества жизни. Наслаждайтесь!	
+label_update_text_chaos		Здесь новое небольшое обновление! Мы добавили кучу карт, которые сделают жизнь в средней и поздней игре намного более управляемой.## Есть карты, которые помогут вам в управлении едой, ресурсами и даже некоторые карты, которые вы можете использовать для настройки простой автоматизации!##Мы также исправили некоторые ошибки, а также добавили исправления качества жизни. Наслаждайтесь!	
 label_update_title_chaos		Порядок и структура	
 label_menu_sub_title		Порядок и структура	
 card_breeding_pen_name		Племенной загон	
@@ -1188,7 +1187,7 @@ card_well_description		Бесконечный источник воды
 card_well_status_0		Строительство колодца	
 card_well_status_1		Получение воды	
 label_disable_paused_text		Мигает «Пауза»: [on_off]		
-label_placeholder_search	Показывается в «полях поиска», где игроки могут вводить текст	
+label_placeholder_search		Показывается в «полях поиска», где игроки могут вводить текст	
 label_conflict_very_effective		Очень эффективно	
 cutscene_happiness_food_text_0		«Вы продали немного еды...»	
 cutscene_happiness_food_text_1		«Печаль появляется, если вы продаете еду, которую могут есть жители деревни»	
@@ -1640,7 +1639,7 @@ label_final_demand_text_4		«В городе есть торговец, и он 
 label_forest_update		Темный лес	
 label_fountain_text		Фонтан не дает вашим жителям стареть	
 label_fountain_title		Фонтан молодости	
-label_giving_happiness	nog over nadenken	Дарить счастье...	
+label_giving_happiness		Дарует счастье...	
 label_greed_demand_failed_fight		«Мне придется преподать тебе урок... Стража!!!»	
 label_greed_demand_failed_first_time		«Это твой первый проступок, поэтому я оставлю все как есть. Больше так не делай!»	
 label_greed_intro_1		«Добро пожаловать в мир жадности»	
@@ -1894,7 +1893,7 @@ card_energy_status_0		Генерация энергии
 cardtype_energy		Энергия	
 label_debug_no_energy		Не использую энергию: [on_off]	
 statuseffect_no_energy_description		Этому устройству нужна энергия. Перейдите в режим просмотра энергии, чтобы подключить его к сети	
-statuseffect_no_energy_lore	Электрический гул БЗЗЗззззЗЗЗЗ
+statuseffect_no_energy_lore		Электрический гул БЗЗЗззззЗЗЗЗ
 statuseffect_no_energy_name		Необходимая энергия	
 pack_cities_intro_text		Промышленная революция	
 statuseffect_no_workers_description		В этом здании не хватает работников	
@@ -2024,7 +2023,7 @@ label_end_of_moon_cities_lost		Вы потеряли [amount] [icon] в этой
 label_end_of_moon_cities_wellbeing		Благополучие
 label_dollar		Деньги	
 label_dollar_infobox		В настоящее время у вас [amount] [icon]	
-label_requirement_take_card	[amount]x [card] в городе:
+label_requirement_take_card		[amount]x [card] в городе:
 label_requirement_take_dollars		[amount] денег в городе:	
 label_requirement_take_food		Использовано [amount] еды:	
 label_requirement_has_housing		Имеет жилье:	
@@ -2113,7 +2112,7 @@ card_gravel_name		Гравий
 card_gravel_description		Крупнозернистый песок	
 pack_cities_oil_text		Черное золото	
 label_air_title		Воздух	
-label_foot_title		Foot	
+label_foot_title		Ступни	
 label_armour_title		Броня	
 label_air_description		Воздушные машины хороши против бронированных машин	
 label_foot_description		Пешие солдаты хороши против воздушной техники	
