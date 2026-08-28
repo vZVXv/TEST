@@ -241,7 +241,7 @@ label_complete_more_quests_for_pack		<one>Выполните еще 1 задан
 label_completed_main_quest		Вы выполнили главный квест!	
 label_continue		Продолжить	
 label_continue_run		Продолжить забег (Луна [moon])	
-label_credits		Кредиты	
+label_credits		Авторы
 label_damage		Урон:	
 label_drag_coins_to_buy_pack		Перетащите [cost][goldicon] здесь, чтобы купить этот пакет    	
 label_drop_to_sell		Продать за [value]
@@ -634,7 +634,7 @@ label_rumor_full		Слухи: [name]
 label_sailing_off_title		Отплытие	
 label_save_game		<b>Сохранить [save_index]</b> - [percentage] complete - last played [date]	
 label_save_games		Сохранить игру	
-label_select_save		Выберите Сохранить	
+label_select_save		Выберите Сохранение	
 label_side_quests		Побочные квесты	
 label_start_new_save		<b>Сохранить [save_index]</b> - создать новое сохранение	
 label_status_effect		Статус: [status]	
