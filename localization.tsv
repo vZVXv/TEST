@@ -739,7 +739,7 @@ credits_sokpop		Game by Sokpop
 credits_local_heroes		Локализация	
 credits_special_thanks		Особая благодарность	
 label_relic_brought_to_cathedral		Реликвия была доставлена в собор	
-label_controls		Controls	
+label_controls		Управление	
 control_time_1		1x Speed	
 control_time_2		5x Speed	
 control_time_3		0x Speed	
@@ -755,7 +755,7 @@ control_move		Move
 control_snap_move		Snap Move	
 control_snap_cards		Snap Cards To Grid	
 label_keyboard_mouse		Keyboard & Mouse	
-label_controller		Controller	
+label_controller		Геймпад	
 label_waiting_for_input		Waiting for input	
 label_sellbox_description		Перетащите карты сюда, чтобы продать их. Вы также можете использовать [action_sell] чтобы продать карты
 label_toggle_panel_text		Теперь элементы управления могут быть переброшены, так что параметры будут заменены соответствующей клавишей	Нажмите эту кнопку или нажмите [action_panel_collapse] чтобы переключить вкладку «Квесты и идеи»	
